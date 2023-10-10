@@ -16,11 +16,20 @@ List<UserData> data = UserData.Read(file);
 bool isSpeedTextSuspect = Captcher.verifySpeedText(data);
 bool isMovementPatternsSuspect = Captcher.verifyMovementPatterns(data);
 bool isSpecialKeysSuspect = Captcher.verifyShift(data);
+bool isEnterKeySuspect = Captcher.verifyEnter(data);
 
-if(isSpeedTextSuspect || isMovementPatternsSuspect || isSpecialKeysSuspect)
-    isCracker();
-else
+Console.WriteLine(isSpeedTextSuspect);
+Console.WriteLine(isMovementPatternsSuspect);
+Console.WriteLine(isSpecialKeysSuspect);
+Console.WriteLine(isEnterKeySuspect);
+
+if(!isEnterKeySuspect)
     isUser();
+else
+    if(isSpeedTextSuspect || isMovementPatternsSuspect || isSpecialKeysSuspect)
+        isCracker();
+    else
+        isUser();
 
 void isCracker()
     => Console.WriteLine("Cracker");

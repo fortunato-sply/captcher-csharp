@@ -40,7 +40,7 @@ public static class Captcher
     int events = 0, eventEqualDistance = 0;
     int seq = 0;
 
-    int eventsTreshold = 3;
+    int eventsTreshold = 2;
     int eventEqualDistanceTreshold = 10;
 
     int distanceX = 0;
@@ -78,11 +78,11 @@ public static class Captcher
       {
         seq = 0;
 
-        if (Math.Abs(y - prevY) == distanceY)
+        if (Math.Abs(y - prevY) == distanceY && Math.Abs(x - prevX) == distanceX)
+        {
+          Console.WriteLine($"X: {x} - Y: {y}");
           eventEqualDistance++;
-
-        if (Math.Abs(x - prevX) == distanceX)
-          eventEqualDistance++;
+        }
 
         distanceX = Math.Abs(x - prevX);
         distanceY = Math.Abs(y - prevY);
@@ -96,6 +96,8 @@ public static class Captcher
 
     }
 
+    Console.WriteLine("EVENTS: " + events);
+    Console.WriteLine("event distance: " + eventEqualDistance);
     if (events >= eventsTreshold || eventEqualDistance >= eventEqualDistanceTreshold)
       return true;
 
@@ -135,11 +137,25 @@ public static class Captcher
       }
     }
 
-    Console.WriteLine(numberOfCharacthers);
-    Console.WriteLine(numberOfShifts);
     if (numberOfCharacthers == numberOfShifts)
-      return true;
-    return false;
+      return false;
+    return true;
+  }
+
+  public static bool verifyEnter(List<UserData> data)
+  {
+    bool flag = false;
+
+    for (int i = 1; i < data.Count; i++)
+    {
+      string text = data[i].Text;
+      if (text == "Enter")
+        flag = true;
+    }
+
+    if (flag)
+      return false;
+    return true;
   }
 
 }
