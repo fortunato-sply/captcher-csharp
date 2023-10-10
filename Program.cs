@@ -15,8 +15,12 @@ List<UserData> data = UserData.Read(file);
 
 bool isSpeedTextSuspect = Captcher.verifySpeedText(data);
 bool isMovementPatternsSuspect = Captcher.verifyMovementPatterns(data);
-bool isSpecialKeysVerified = Captcher.verifyShift(data);
-Console.WriteLine(isMovementPatternsSuspect);
+bool isSpecialKeysSuspect = Captcher.verifyShift(data);
+
+if(isSpeedTextSuspect || isMovementPatternsSuspect || isSpecialKeysSuspect)
+    isCracker();
+else
+    isUser();
 
 void isCracker()
     => Console.WriteLine("Cracker");
